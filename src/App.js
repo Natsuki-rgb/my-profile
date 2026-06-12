@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 
 export default function ProfilePage() {
-  // 初期データ
   const defaultProfile = useMemo(() => ({
     name: "笠原 菜月",
     bio: "ここに自己紹介を書きます。",
     image: null,
   }), []);
 
-  // ここを自分のパスワードに変更！
   const ADMIN_PASSWORD = "Natsuki2026!";
 
   const [profile, setProfile] = useState(defaultProfile);
@@ -16,7 +14,6 @@ export default function ProfilePage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [message, setMessage] = useState("");
 
-  // ローカル保存の読み込み
   useEffect(() => {
     const saved = localStorage.getItem("profileDraft");
     if (!saved) return;
@@ -30,7 +27,6 @@ export default function ProfilePage() {
     }
   }, [defaultProfile]);
 
-  // 画像アップロード
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -42,7 +38,6 @@ export default function ProfilePage() {
     reader.readAsDataURL(file);
   };
 
-  // ログイン
   const handleAdminLogin = () => {
     const input = window.prompt("パスワードを入力");
 
@@ -54,14 +49,12 @@ export default function ProfilePage() {
     }
   };
 
-  // 保存
   const handleSave = () => {
     setProfile(draft);
     localStorage.setItem("profileDraft", JSON.stringify(draft));
     setMessage("この端末に保存しました");
   };
 
-  // リセット
   const handleReset = () => {
     setProfile(defaultProfile);
     setDraft(defaultProfile);
@@ -70,16 +63,16 @@ export default function ProfilePage() {
   };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #eef2ff, #f8fafc)",
-      fontFamily: "sans-serif",
-      padding: "20px"
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #eef2ff, #f8fafc)",
+        fontFamily: "sans-serif",
+        padding: "20px",
+      }}
+    >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-
-        {/* ログインボタン */}
-        <div style={{ textAlign: "right" }}>
+        <div style={{ textAlign: "right", marginBottom: "12px" }}>
           {!isAdmin ? (
             <button onClick={handleAdminLogin}>管理者ログイン</button>
           ) : (
@@ -87,62 +80,65 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* メッセージ */}
         {message && <p>{message}</p>}
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isAdmin ? "1fr 1fr" : "1fr",
-          gap: "20px"
-        }}>
-
-          {/* 編集エリア（自分だけ） */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isAdmin ? "1fr 1fr" : "1fr",
+            gap: "20px",
+          }}
+        >
           {isAdmin && (
-            <div style={{
-              background: "#fff",
-              padding: "20px",
-              borderRadius: "10px"
-            }}>
+            <div
+              style={{
+                background: "#fff",
+                padding: "20px",
+                borderRadius: "10px",
+              }}
+            >
               <h2>編集</h2>
 
               <input
                 value={draft.name}
                 onChange={(e) => setDraft({ ...draft, name: e.target.value })}
                 placeholder="名前"
+                style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
               />
-
-              <br />
 
               <textarea
                 value={draft.bio}
                 onChange={(e) => setDraft({ ...draft, bio: e.target.value })}
+                rows={5}
+                style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
               />
 
-              <br />
+              <input type="file" accept="image/*" onChange={handleImageUpload} />
 
-              <input type="file" onChange={handleImageUpload} />
-
-              <br />
-
-              <button onClick={handleSave}>保存</button>
-              <button onClick={handleReset}>リセット</button>
+              <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
+                <button onClick={handleSave}>保存</button>
+                <button onClick={handleReset}>リセット</button>
+              </div>
             </div>
           )}
 
-          {/* 公開ビュー */}
-          <div style={{
-            background: "#fff",
-            padding: "30px",
-            borderRadius: "10px",
-            textAlign: "center"
-          }}>
+          <div
+            style={{
+              background: "#fff",
+              padding: "30px",
+              borderRadius: "10px",
+              textAlign: "center",
+            }}
+          >
             {profile.image && (
               <img
                 src={profile.image}
+                alt="プロフィール画像"
                 style={{
                   width: "120px",
                   height: "120px",
-                  borderRadius: "50%"
+                  borderRadius: "50%",
+                  objectFit: "cover",
                 }}
               />
             )}
@@ -150,7 +146,6 @@ export default function ProfilePage() {
             <h2>{profile.name}</h2>
             <p style={{ whiteSpace: "pre-wrap" }}>{profile.bio}</p>
           </div>
-
         </div>
       </div>
     </div>
