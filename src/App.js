@@ -7,6 +7,7 @@ export default function ProfilePage() {
     image: null,
   }), []);
 
+  // ✅ 自分用パスワード
   const ADMIN_PASSWORD = "Natsuki2026!";
 
   const [profile, setProfile] = useState(defaultProfile);
@@ -33,7 +34,10 @@ export default function ProfilePage() {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setDraft((prev) => ({ ...prev, image: reader.result }));
+      setDraft((prev) => ({
+        ...prev,
+        image: reader.result,
+      }));
     };
     reader.readAsDataURL(file);
   };
@@ -72,6 +76,8 @@ export default function ProfilePage() {
       }}
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+
+        {/* ログイン */}
         <div style={{ textAlign: "right", marginBottom: "12px" }}>
           {!isAdmin ? (
             <button onClick={handleAdminLogin}>管理者ログイン</button>
@@ -89,6 +95,7 @@ export default function ProfilePage() {
             gap: "20px",
           }}
         >
+          {/* 編集エリア */}
           {isAdmin && (
             <div
               style={{
@@ -101,19 +108,35 @@ export default function ProfilePage() {
 
               <input
                 value={draft.name}
-                onChange={(e) => setDraft({ ...draft, name: e.target.value })}
+                onChange={(e) =>
+                  setDraft({ ...draft, name: e.target.value })
+                }
                 placeholder="名前"
-                style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+                style={{
+                  width: "100%",
+                  marginBottom: "10px",
+                  padding: "8px",
+                }}
               />
 
               <textarea
                 value={draft.bio}
-                onChange={(e) => setDraft({ ...draft, bio: e.target.value })}
+                onChange={(e) =>
+                  setDraft({ ...draft, bio: e.target.value })
+                }
                 rows={5}
-                style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+                style={{
+                  width: "100%",
+                  marginBottom: "10px",
+                  padding: "8px",
+                }}
               />
 
-              <input type="file" accept="image/*" onChange={handleImageUpload} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
 
               <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
                 <button onClick={handleSave}>保存</button>
@@ -122,6 +145,7 @@ export default function ProfilePage() {
             </div>
           )}
 
+          {/* 表示エリア */}
           <div
             style={{
               background: "#fff",
@@ -133,7 +157,7 @@ export default function ProfilePage() {
             {profile.image && (
               <img
                 src={profile.image}
-                alt="プロフィール画像"
+                alt="プロフィール画像" 
                 style={{
                   width: "120px",
                   height: "120px",
