@@ -1,63 +1,66 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function ProfilePage() {
-  const [name, setName] = useState("あなたの名前");
-  const [bio, setBio] = useState("ここに自己紹介を書きます。");
-  const [image, setImage] = useState(null);
+  // 初期データ
+  const defaultProfile = useMemo(() => ({
+    name: "笠原 菜月",
+    bio: "ここに自己紹介を書きます。",
+    image: null,
+  }), []);
 
+  // ここを自分のパスワードに変更！
+  const ADMIN_PASSWORD = "Natsuki2026!";
+
+  const [profile, setProfile] = useState(defaultProfile);
+  const [draft, setDraft] = useState(defaultProfile);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // ローカル保存の読み込み
+  useEffect(() => {
+    const saved = localStorage.getItem("profileDraft");
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved);
+      setProfile(parsed);
+      setDraft(parsed);
+    } catch (error) {
+      console.error("読み込み失敗", error);
+    }
+  }, [defaultProfile]);
+
+  // 画像アップロード
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setDraft((prev) => ({ ...prev, image: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // ログイン
+  const handleAdminLogin = () => {
+    const input = window.prompt("パスワードを入力");
+
+    if (input === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      setMessage("管理者モードON");
+    } else if (input !== null) {
+      setMessage("パスワード違います");
     }
   };
 
-  return (
-    <div style={{ fontFamily: "sans-serif", padding: "20px" }}>
-      <h1>プロフィールページ作成AAAAAAAAAAA</h1>
+  // 保存
+  const handleSave = () => {
+    setProfile(draft);
+    localStorage.setItem("profileDraft", JSON.stringify(draft));
+    setMessage("この端末に保存しました");
+  };
 
-      <div style={{ marginBottom: "20px" }}>
-        <h2>編集エリア</h2>
-
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="名前"
-          style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
-        />
-
-        <textarea
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          placeholder="自己紹介a"
-          rows={5}
-          style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
-        />
-
-        <input type="file" accept="image/*" onChange={handleImageUpload} />
-      </div>
-
-      <hr />
-
-      <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <h2>プレビュー（公開画面）</h2>
-
-        {image && (
-          <img
-            src={image}
-            alt="profile"
-            style={{ width: "150px", height: "150px", borderRadius: "50%", objectFit: "cover" }}
-          />
-        )}
-
-
-        <h3>{name}</h3>
-        <p style={{ whiteSpace: "pre-wrap" }}>{bio}</p>
-      </div>
-    </div>
-  );
-}
+  // リセット
+  const handleReset = () => {
+    setProfile(defaultProfile);
