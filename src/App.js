@@ -33,7 +33,7 @@ export default function ProfilePage() {
         <textarea
           value={bio}
           onChange={(e) => setBio(e.target.value)}
-          placeholder="自己紹介"
+          placeholder="自己紹介a"
           rows={5}
           style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
         />
