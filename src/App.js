@@ -18,7 +18,7 @@ export default function ProfilePage() {
 
   return (
     <div style={{ fontFamily: "sans-serif", padding: "20px" }}>
-      <h1>プロフィールページ作成</h1>
+      <h1>プロフィールページ作成AAAAAAAAAAA</h1>
 
       <div style={{ marginBottom: "20px" }}>
         <h2>編集エリア</h2>
