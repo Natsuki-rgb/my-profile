@@ -1,69 +1,26 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 
 export default function ProfilePage() {
-  const defaultProfile = useMemo(() => ({
-    name: "笠原 菜月",
-    bio: "ここに自己紹介を書きます。",
-    image: null,
-  }), []);
+  const [images, setImages] = useState([]);
 
-  // ✅ 自分用パスワード
-  const ADMIN_PASSWORD = "Natsuki2026!";
+  const name = "笠原 菜月";
+  const bio = "Copilotで作りました";
 
-  const [profile, setProfile] = useState(defaultProfile);
-  const [draft, setDraft] = useState(defaultProfile);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("profileDraft");
-    if (!saved) return;
-
-    try {
-      const parsed = JSON.parse(saved);
-      setProfile(parsed);
-      setDraft(parsed);
-    } catch (error) {
-      console.error("読み込み失敗", error);
-    }
-  }, [defaultProfile]);
-
+  // 画像アップロード（最大2枚）
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files).slice(0, 2);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setDraft((prev) => ({
-        ...prev,
-        image: reader.result,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
+    const readers = files.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    });
 
-  const handleAdminLogin = () => {
-    const input = window.prompt("パスワードを入力");
-
-    if (input === ADMIN_PASSWORD) {
-      setIsAdmin(true);
-      setMessage("管理者モードON");
-    } else if (input !== null) {
-      setMessage("パスワード違います");
-    }
-  };
-
-  const handleSave = () => {
-    setProfile(draft);
-    localStorage.setItem("profileDraft", JSON.stringify(draft));
-    setMessage("この端末に保存しました");
-  };
-
-  const handleReset = () => {
-    setProfile(defaultProfile);
-    setDraft(defaultProfile);
-    localStorage.removeItem("profileDraft");
-    setMessage("リセットしました");
+    Promise.all(readers).then((results) => {
+      setImages(results);
+    });
   };
 
   return (
@@ -75,102 +32,50 @@ export default function ProfilePage() {
         padding: "20px",
       }}
     >
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+      <div
+        style={{
+          maxWidth: "600px",
+          margin: "0 auto",
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "30px",
+          textAlign: "center",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        }}
+      >
+        <h1>プロフィール</h1>
 
-        {/* ログイン */}
-        <div style={{ textAlign: "right", marginBottom: "12px" }}>
-          {!isAdmin ? (
-            <button onClick={handleAdminLogin}>管理者ログイン</button>
-          ) : (
-            <button onClick={() => setIsAdmin(false)}>閉じる</button>
-          )}
-        </div>
+        {/* 画像アップロード */}
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImageUpload}
+          style={{ marginBottom: "20px" }}
+        />
 
-        {message && <p>{message}</p>}
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isAdmin ? "1fr 1fr" : "1fr",
-            gap: "20px",
-          }}
-        >
-          {/* 編集エリア */}
-          {isAdmin && (
-            <div
+        {/* 画像表示 */}
+        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`プロフィール画像${index + 1}`}
               style={{
-                background: "#fff",
-                padding: "20px",
-                borderRadius: "10px",
+                width: "120px",
+                height: "120px",
+                borderRadius: "50%",
+                objectFit: "cover",
               }}
-            >
-              <h2>編集</h2>
-
-              <input
-                value={draft.name}
-                onChange={(e) =>
-                  setDraft({ ...draft, name: e.target.value })
-                }
-                placeholder="名前"
-                style={{
-                  width: "100%",
-                  marginBottom: "10px",
-                  padding: "8px",
-                }}
-              />
-
-              <textarea
-                value={draft.bio}
-                onChange={(e) =>
-                  setDraft({ ...draft, bio: e.target.value })
-                }
-                rows={5}
-                style={{
-                  width: "100%",
-                  marginBottom: "10px",
-                  padding: "8px",
-                }}
-              />
-
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-
-              <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
-                <button onClick={handleSave}>保存</button>
-                <button onClick={handleReset}>リセット</button>
-              </div>
-            </div>
-          )}
-
-          {/* 表示エリア */}
-          <div
-            style={{
-              background: "#fff",
-              padding: "30px",
-              borderRadius: "10px",
-              textAlign: "center",
-            }}
-          >
-            {profile.image && (
-              <img
-                src={profile.image}
-                alt="プロフィール画像" 
-                style={{
-                  width: "120px",
-                  height: "120px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
-
-            <h2>{profile.name}</h2>
-            <p style={{ whiteSpace: "pre-wrap" }}>{profile.bio}</p>
-          </div>
+            />
+          ))}
         </div>
+
+        {/* 名前 */}
+        <h2 style={{ marginTop: "20px" }}>{name}</h2>
+
+        {/* 自己紹介 */}
+        <p>{bio}</p>
       </div>
     </div>
   );
