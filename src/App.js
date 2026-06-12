@@ -118,8 +118,8 @@ export default function ProfilePage() {
 
           <ul style={{ paddingLeft: "20px", lineHeight: "1.8" }}>
             <li>ブラジリアン柔術</li>
-            <li>SJJF World 2025 アダルト女子　優勝</li>
-            <li>SJJF アジア 2025 アダルト女子　優勝</li>
+            <li>SJJIF World 2025 白帯 アダルト女子 優勝</li>
+            <li>SJJIF アジア 2025 白帯 アダルト女子 優勝</li>
           </ul>
         </div>
       </div>
