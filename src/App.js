@@ -1,5 +1,8 @@
 import face1 from "./images/img1.jpg";
 import face2 from "./images/img2.jpg";
+import face3 from "./images/img3.jpg";
+import face4 from "./images/img4.jpg";
+import face5 from "./images/img5.jpg";
 
 export default function ProfilePage() {
   const name = "笠原 菜月";
@@ -22,34 +25,43 @@ export default function ProfilePage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-          textAlign: "center",
+          padding: "30px",
         }}
       >
-        <img
-          src={face1}
-          alt="仕事用プロフィール"
-          style={{
-            width: "110px",
-            height: "110px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "3px solid white",
-            marginBottom: "10px",
-          }}
-        />
+        <div style={{ maxWidth: "500px", margin: "0 auto", width: "100%" }}>
+          <div style={{ textAlign: "center" }}>
+            <img
+              src={face1}
+              alt="仕事用プロフィール"
+              style={{
+                width: "130px",
+                height: "130px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                border: "4px solid white",
+                marginBottom: "15px",
+              }}
+            />
 
-        <h2>{name}</h2>
+            <h2 style={{ fontSize: "28px" }}>{name}</h2>
+          </div>
 
-        <div style={{ marginTop: "10px", textAlign: "left", fontSize: "14px" }}>
-          <b>業務履歴</b>
-          <ul style={{ lineHeight: "1.6" }}>
-            <li>砂防施設の長寿命化</li>
-            <li>流砂観測</li>
-            <li>砂防施設の補修設計</li>
-            <li>土砂・洪水氾濫業務等</li>
-          </ul>
+          <p style={{ lineHeight: "1.8", fontSize: "16px" }}>
+            このページをご覧いただきありがとうございます。
+            少しでも私のことを知っていただき、声をかけていただけたら嬉しいです。
+          </p>
+
+          <div style={{ marginTop: "20px" }}>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              業務履歴
+            </h3>
+            <ul style={{ lineHeight: "1.8", fontSize: "16px" }}>
+              <li>砂防施設の長寿命化</li>
+              <li>流砂観測</li>
+              <li>砂防施設の補修設計</li>
+              <li>土砂・洪水氾濫業務等</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -61,30 +73,50 @@ export default function ProfilePage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-          textAlign: "center",
+          padding: "30px",
         }}
       >
-        <img
-          src={face2}
-          alt="プライベート"
-          style={{
-            width: "110px",
-            height: "110px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            marginBottom: "10px",
-          }}
-        />
+        <div style={{ maxWidth: "500px", margin: "0 auto", width: "100%" }}>
+          <h3
+            style={{
+              fontSize: "22px",
+              textAlign: "center",
+              marginBottom: "20px",
+            }}
+          >
+            趣味：ブラジリアン柔術
+          </h3>
 
-        <h3>趣味・実績</h3>
+          {/* 写真（強調エリア） */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "10px",
+              marginBottom: "20px",
+            }}
+          >
+            {[face2, face3, face4, face5].map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`プライベート画像${i}`}
+                style={{
+                  width: "90px",
+                  height: "90px",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                }}
+              />
+            ))}
+          </div>
 
-        <ul style={{ lineHeight: "1.6", textAlign: "left", fontSize: "14px" }}>
-          <li>ブラジリアン柔術</li>
-          <li>SJJF World 2025 アダルト女子 優勝</li>
-          <li>SJJF アジア 2025 アダルト女子 優勝</li>
-        </ul>
+          <ul style={{ lineHeight: "1.8", fontSize: "16px" }}>
+            <li>SJJF World 2025 アダルト女子 優勝</li>
+            <li>SJJF アジア 2025 アダルト女子 優勝</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
