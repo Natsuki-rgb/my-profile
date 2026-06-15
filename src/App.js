@@ -1,8 +1,8 @@
-import face1 from "./images/img1.jpg";
-import face2 from "./images/img2.jpg";
-import face3 from "./images/img3.jpg";
-import face4 from "./images/img4.jpg";
-import face5 from "./images/img5.jpg";
+import face1 from "./images/face1.jpg";
+import face2 from "./images/face2.jpg";
+import face3 from "./images/face3.jpg";
+import face4 from "./images/face4.jpg";
+import face5 from "./images/face5.jpg";
 
 
 export default function ProfilePage() {
