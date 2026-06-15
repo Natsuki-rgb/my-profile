@@ -1,5 +1,5 @@
-import face1 from "./images/face1.jpg";
-import face2 from "./images/face2.jpg";
+import face1 from "./images/img1.jpg";
+import face2 from "./images/img2.jpg";
 
 export default function ProfilePage() {
   const name = "笠原 菜月";
