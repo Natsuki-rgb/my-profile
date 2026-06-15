@@ -4,6 +4,7 @@ import face3 from "./images/img3.jpg";
 import face4 from "./images/img4.jpg";
 import face5 from "./images/img5.jpg";
 
+
 export default function ProfilePage() {
   const name = "笠原 菜月";
 
