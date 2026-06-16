@@ -3,7 +3,7 @@ import face2 from "./images/face2.JPG";
 import face3 from "./images/face3.JPG";
 import face4 from "./images/face4.JPG";
 import face5 from "./images/face5.jpg";
-
+import face6 from "./images/face6.JPG";
 
 export default function ProfilePage() {
   const name = "笠原 菜月";
@@ -34,8 +34,8 @@ export default function ProfilePage() {
               src={face1}
               alt="仕事用プロフィール"
               style={{
-                width: "130px",
-                height: "130px",
+                width: "140px", // ← 少し大きく
+                height: "140px",
                 borderRadius: "50%",
                 objectFit: "cover",
                 border: "4px solid white",
@@ -68,7 +68,7 @@ export default function ProfilePage() {
       <div
         style={{
           flex: 1,
-          backgroundImage: `url(${face3})`, // ←ここ変更
+          backgroundImage: `url(${face6})`, // ←変更
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
@@ -87,11 +87,11 @@ export default function ProfilePage() {
           }}
         />
 
-        {/* コンテンツ */}
+        {/* カード */}
         <div
           style={{
             position: "relative",
-            maxWidth: "500px",
+            maxWidth: "520px", // ← 少し広げた
             width: "100%",
             background: "rgba(255,255,255,0.92)",
             padding: "25px",
@@ -99,16 +99,16 @@ export default function ProfilePage() {
             textAlign: "center",
           }}
         >
-          <h3 style={{ fontSize: "22px", marginBottom: "20px" }}>
+          <h3 style={{ fontSize: "24px", marginBottom: "20px" }}>
             趣味：ブラジリアン柔術
           </h3>
 
-          {/* ✅ 写真：2×2レイアウト */}
+          {/* ✅ 2×2 写真（少し大きく） */}
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "10px",
+              gap: "12px",
               marginBottom: "20px",
             }}
           >
@@ -119,15 +119,15 @@ export default function ProfilePage() {
                 alt={`プライベート画像${i}`}
                 style={{
                   width: "100%",
-                  height: "120px",
+                  height: "140px", // ← 大きくした
                   objectFit: "cover",
-                  borderRadius: "10px",
+                  borderRadius: "12px",
                 }}
               />
             ))}
           </div>
 
-          <ul style={{ lineHeight: "1.8", fontSize: "15px", textAlign: "left" }}>
+          <ul style={{ lineHeight: "1.8", fontSize: "16px", textAlign: "left" }}>
             <li>SJJF World 2025 アダルト女子 優勝</li>
             <li>SJJF アジア 2025 アダルト女子 優勝</li>
           </ul>
