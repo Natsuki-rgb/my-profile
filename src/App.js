@@ -64,11 +64,11 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* ===== 下：プライベート（背景写真あり） ===== */}
+      {/* ===== 下：プライベート ===== */}
       <div
         style={{
           flex: 1,
-          backgroundImage: `url(${face4})`,
+          backgroundImage: `url(${face3})`, // ←ここ変更
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
@@ -78,39 +78,38 @@ export default function ProfilePage() {
           padding: "30px",
         }}
       >
-        {/* 暗フィルター（超重要） */}
+        {/* 暗フィルター */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: "rgba(0,0,0,0.6)",
+            background: "rgba(0,0,0,0.55)",
           }}
         />
 
-        {/* コンテンツ（カード） */}
+        {/* コンテンツ */}
         <div
           style={{
             position: "relative",
             maxWidth: "500px",
             width: "100%",
-            background: "rgba(255,255,255,0.9)",
+            background: "rgba(255,255,255,0.92)",
             padding: "25px",
             borderRadius: "12px",
             textAlign: "center",
           }}
         >
-          <h3 style={{ fontSize: "22px", marginBottom: "15px" }}>
+          <h3 style={{ fontSize: "22px", marginBottom: "20px" }}>
             趣味：ブラジリアン柔術
           </h3>
 
-          {/* 写真群 */}
+          {/* ✅ 写真：2×2レイアウト */}
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
               gap: "10px",
-              marginBottom: "15px",
+              marginBottom: "20px",
             }}
           >
             {[face2, face3, face4, face5].map((img, i) => (
@@ -119,10 +118,10 @@ export default function ProfilePage() {
                 src={img}
                 alt={`プライベート画像${i}`}
                 style={{
-                  width: "80px",
-                  height: "80px",
+                  width: "100%",
+                  height: "120px",
                   objectFit: "cover",
-                  borderRadius: "8px",
+                  borderRadius: "10px",
                 }}
               />
             ))}
