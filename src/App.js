@@ -4,6 +4,7 @@ import face3 from "./images/face3.JPG";
 import face4 from "./images/face4.JPG";
 import face5 from "./images/face5.jpg";
 import face6 from "./images/face6.JPG";
+import video1 from "./images/video.mp4";
 
 export default function ProfilePage() {
   const name = "笠原 菜月";
@@ -15,6 +16,7 @@ export default function ProfilePage() {
         display: "flex",
         flexDirection: "column",
         fontFamily: "sans-serif",
+        overflow: "hidden",
       }}
     >
       {/* ===== 上：仕事 ===== */}
@@ -30,18 +32,7 @@ export default function ProfilePage() {
       >
         <div style={{ maxWidth: "500px", width: "100%" }}>
           <div style={{ textAlign: "center" }}>
-            <img
-              src={face1}
-              alt="仕事用プロフィール"
-              style={{
-                width: "140px", // ← 少し大きく
-                height: "140px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "4px solid white",
-                marginBottom: "15px",
-              }}
-            />
+            {face1}
             <h2 style={{ fontSize: "28px" }}>{name}</h2>
           </div>
 
@@ -51,9 +42,7 @@ export default function ProfilePage() {
           </p>
 
           <div style={{ marginTop: "20px" }}>
-            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
-              業務履歴
-            </h3>
+            <h3 style={{ fontSize: "20px" }}>業務履歴</h3>
             <ul style={{ lineHeight: "1.8", fontSize: "16px" }}>
               <li>砂防施設の長寿命化</li>
               <li>流砂観測</li>
@@ -68,14 +57,14 @@ export default function ProfilePage() {
       <div
         style={{
           flex: 1,
-          backgroundImage: `url(${face6})`, // ←変更
+          backgroundImage: `url(${face6})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "30px",
+          padding: "25px",
         }}
       >
         {/* 暗フィルター */}
@@ -87,47 +76,40 @@ export default function ProfilePage() {
           }}
         />
 
-        {/* カード */}
+        {/* コンテンツ */}
         <div
           style={{
             position: "relative",
-            maxWidth: "520px", // ← 少し広げた
+            maxWidth: "520px",
             width: "100%",
             background: "rgba(255,255,255,0.92)",
-            padding: "25px",
+            padding: "20px",
             borderRadius: "12px",
             textAlign: "center",
           }}
         >
-          <h3 style={{ fontSize: "24px", marginBottom: "20px" }}>
+          <h3 style={{ fontSize: "22px", marginBottom: "15px" }}>
             趣味：ブラジリアン柔術
           </h3>
 
-          {/* ✅ 2×2 写真（少し大きく） */}
+          {/* ✅ 動画（メイン） */}
+          {video1}
+
+          {/* ✅ 写真（2×2） */}
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "12px",
-              marginBottom: "20px",
+              gap: "10px",
+              marginBottom: "15px",
             }}
           >
             {[face2, face3, face4, face5].map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`プライベート画像${i}`}
-                style={{
-                  width: "100%",
-                  height: "140px", // ← 大きくした
-                  objectFit: "cover",
-                  borderRadius: "12px",
-                }}
-              />
+              {img}
             ))}
           </div>
 
-          <ul style={{ lineHeight: "1.8", fontSize: "16px", textAlign: "left" }}>
+          <ul style={{ lineHeight: "1.8", fontSize: "15px", textAlign: "left" }}>
             <li>SJJF World 2025 アダルト女子 優勝</li>
             <li>SJJF アジア 2025 アダルト女子 優勝</li>
           </ul>
