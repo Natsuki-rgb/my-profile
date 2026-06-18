@@ -92,22 +92,42 @@ export default function ProfilePage() {
             趣味：ブラジリアン柔術
           </h3>
 
-          {/* ✅ 動画（メイン） */}
-          {video1}
 
-          {/* ✅ 写真（2×2） */}
+          {/* ✅ 動画 */}
+          <video
+            src={video1}
+            controls
+            style={{
+              width: "100%",
+              borderRadius: "10px",
+              marginBottom: "15px"
+            }}
+          />
+
+          {/* ✅ 写真 */}
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "10px",
+              gap: "12px",
               marginBottom: "15px",
             }}
           >
             {[face2, face3, face4, face5].map((img, i) => (
-              {img}
+              <img
+                key={i}
+                src={img}
+                alt={`プライベート画像${i}`}
+                style={{
+                  width: "100%",
+                  height: "140px",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                }}
+              />
             ))}
           </div>
+
 
           <ul style={{ lineHeight: "1.8", fontSize: "15px", textAlign: "left" }}>
             <li>SJJF World 2025 アダルト女子 優勝</li>
