@@ -9,6 +9,13 @@ import video1 from "./images/video.mp4";
 export default function ProfilePage() {
   const name = "笠原 菜月";
 
+  const galleryImages = [
+    { src: face2, alt: "プライベート画像1", position: "center center" },
+    { src: face3, alt: "プライベート画像2", position: "center top" },
+    { src: face4, alt: "プライベート画像3", position: "center center" },
+    { src: face5, alt: "プライベート画像4", position: "center top" },
+  ];
+
   return (
     <>
       <style>{`
@@ -16,9 +23,12 @@ export default function ProfilePage() {
           box-sizing: border-box;
         }
 
-        body {
+        html, body, #root {
           margin: 0;
-          font-family: sans-serif;
+          padding: 0;
+          min-height: 100%;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+            "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
           background: #f4f6fb;
         }
 
@@ -66,20 +76,21 @@ export default function ProfilePage() {
           align-items: center;
         }
 
-        .profile-image {
+        .work-photo {
           width: 140px;
           height: 140px;
           border-radius: 50%;
           object-fit: cover;
+          object-position: center top;
           display: block;
           margin: 0 auto;
           border: 4px solid white;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         }
 
         .name {
           font-size: 30px;
-          font-weight: bold;
+          font-weight: 700;
           margin: 0 0 12px 0;
         }
 
@@ -91,7 +102,7 @@ export default function ProfilePage() {
 
         .card-title {
           font-size: 22px;
-          font-weight: bold;
+          font-weight: 700;
           margin: 0 0 12px 0;
         }
 
@@ -103,43 +114,21 @@ export default function ProfilePage() {
         }
 
         .private-card {
-          background: rgba(255, 255, 255, 0.92);
+          background: rgba(255, 255, 255, 0.93);
           color: #222;
           border-radius: 16px;
           padding: 22px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        }
-
-        .private-header {
-          margin-bottom: 16px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         }
 
         .private-title {
           font-size: 24px;
-          font-weight: bold;
-          margin: 0;
+          font-weight: 700;
+          margin: 0 0 16px 0;
           text-align: center;
         }
 
-        .media-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-          margin-top: 16px;
-          margin-bottom: 18px;
-        }
-
-        .gallery-image {
-          width: 100%;
-          height: 150px;
-          object-fit: cover;
-          border-radius: 12px;
-          display: block;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
-
         .video-wrap {
-          margin-top: 12px;
           margin-bottom: 16px;
         }
 
@@ -149,7 +138,56 @@ export default function ProfilePage() {
           border-radius: 12px;
           background: black;
           display: block;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .media-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+
+        .gallery-image {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+          border-radius: 12px;
+          display: block;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .next-match {
+          margin-top: 20px;
+          text-align: center;
+        }
+
+        .next-match-label {
+          font-size: 14px;
+          color: #555;
+          margin-bottom: 10px;
+        }
+
+        .next-match-link {
+          display: inline-block;
+          background: #1e3c72;
+          color: #ffffff;
+          text-decoration: none;
+          padding: 14px 18px;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 16px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+          transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .next-match-link:hover {
+          opacity: 0.92;
+          transform: translateY(-1px);
+        }
+
+        .next-match-link:active {
+          transform: translateY(0);
         }
 
         @media (max-width: 768px) {
@@ -162,7 +200,7 @@ export default function ProfilePage() {
             text-align: center;
           }
 
-          .profile-image {
+          .work-photo {
             width: 120px;
             height: 120px;
           }
@@ -186,17 +224,22 @@ export default function ProfilePage() {
           }
 
           .gallery-image {
-            height: 120px;
+            height: 130px;
           }
 
           .video {
-            max-height: 180px;
+            max-height: 190px;
+          }
+
+          .next-match-link {
+            width: 100%;
+            font-size: 15px;
           }
         }
       `}</style>
 
       <div className="page">
-        {/* ===== 仕事 ===== */}
+        {/* ===== 上：仕事 ===== */}
         <section className="section work-section">
           <div className="container">
             <div className="top-grid">
@@ -204,7 +247,7 @@ export default function ProfilePage() {
                 <img
                   src={face1}
                   alt="仕事用プロフィール写真"
-                  className="profile-image"
+                  className="work-photo"
                 />
               </div>
 
@@ -228,55 +271,55 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* ===== プライベート ===== */}
+        {/* ===== 下：プライベート ===== */}
         <section className="section private-section">
           <div className="private-overlay" />
 
           <div className="container">
             <div className="private-card">
-              <div className="private-header">
-                <h2 className="private-title">趣味：ブラジリアン柔術</h2>
-              </div>
+              <h2 className="private-title">趣味：ブラジリアン柔術</h2>
 
               <div className="video-wrap">
                 <video
                   className="video"
-                  src={video1}
                   controls
+                  muted
                   playsInline
                   preload="metadata"
                 >
+                  <source src={video1} type="video/mp4" />
                   お使いのブラウザは動画再生に対応していません。
                 </video>
               </div>
 
               <div className="media-grid">
-                <img
-                  src={face2}
-                  alt="ブラジリアン柔術の写真1"
-                  className="gallery-image"
-                />
-                <img
-                  src={face3}
-                  alt="ブラジリアン柔術の写真2"
-                  className="gallery-image"
-                />
-                <img
-                  src={face4}
-                  alt="ブラジリアン柔術の写真3"
-                  className="gallery-image"
-                />
-                <img
-                  src={face5}
-                  alt="ブラジリアン柔術の写真4"
-                  className="gallery-image"
-                />
+                {galleryImages.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img.src}
+                    alt={img.alt}
+                    className="gallery-image"
+                    style={{ objectPosition: img.position }}
+                  />
+                ))}
               </div>
 
               <ul className="list">
-                <li>SJJF World 2025 アダルト女子 優勝</li>
-                <li>SJJF アジア 2025 アダルト女子 優勝</li>
+                <li>SJJIF World 2025 アダルト女子 優勝</li>
+                <li>SJJIF アジア 2025 アダルト女子 優勝</li>
               </ul>
+
+              <div className="next-match">
+                <div className="next-match-label">次戦：2026年7月8日</div>
+                <a
+                  className="next-match-link"
+                  href="https://ibjjf.com/events/asian-jiu-jitsu-ibjjf-championship-2026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  IBJJFアジア選手権を見る →
+                </a>
+              </div>
             </div>
           </div>
         </section>
